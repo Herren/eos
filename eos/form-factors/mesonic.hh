@@ -255,6 +255,9 @@ namespace eos
 
             virtual unsigned numWaves() const = 0;
 
+            virtual double unitarity_integrand_0m(const double & s, const unsigned & l, const bool & iso) const = 0;
+            virtual double unitarity_integrand_1p(const double & s, const unsigned & l, const bool & iso) const = 0;
+            virtual double unitarity_integrand_1m(const double & s, const unsigned & l, const bool & iso) const = 0;
     };
 
     template <>

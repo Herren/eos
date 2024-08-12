@@ -32,6 +32,7 @@
 #include <eos/form-factors/parametric-bgjvd2019.hh>
 #include <eos/form-factors/parametric-bsz2015.hh>
 #include <eos/form-factors/parametric-fvdv2018.hh>
+#include <eos/form-factors/parametric-hkvdwvt2024.hh>
 #include <eos/form-factors/parametric-kkvdz2022.hh>
 #include <eos/form-factors/parametric-kmpw2010.hh>
 #include <eos/utils/destringify.hh>
@@ -497,6 +498,7 @@ namespace eos
     const std::map<FormFactorFactory<PToPP2>::KeyType, FormFactorFactory<PToPP2>::ValueType>
     FormFactorFactory<PToPP2>::form_factors
     {
+        { "B->pipi::HKVdWvT2024",            &HKVDWVT2024FormFactors<BToPiPi2, PToPP2>::make        }
     };
 
     std::shared_ptr<FormFactors<PToPP2>>
