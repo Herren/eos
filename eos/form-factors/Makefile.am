@@ -43,6 +43,7 @@ libeosformfactors_la_SOURCES = \
 	parametric-dkmr2017.hh parametric-dkmr2017-impl.hh parametric-dkmr2017.cc \
 	parametric-dm2016.hh parametric-dm2016-impl.hh parametric-dm2016.cc \
 	parametric-fvdv2018.hh parametric-fvdv2018-impl.hh parametric-fvdv2018.cc \
+	parametric-hkvdwvt2024.hh parametric-hkvdwvt2024-impl.hh parametric-hkvdwvt2024.cc \
 	parametric-kkvdz2022.hh parametric-kkvdz2022.cc \
 	parametric-kmpw2010.hh parametric-kmpw2010-impl.hh parametric-kmpw2010.cc \
 	pi-lcdas.cc pi-lcdas.hh \
@@ -81,6 +82,7 @@ include_eos_rarebdecays_HEADERS = \
 	parametric-dkmr2017.hh \
 	parametric-dm2016.hh \
 	parametric-fvdv2018.hh \
+	parametric-hkvdwvt2024.hh \
 	parametric-kmpw2010.hh \
 	pi-lcdas.hh
 
