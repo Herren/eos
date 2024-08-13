@@ -5746,3 +5746,84 @@ groups:
           unit:     '1'
           latex:    '$n^{(D0)}$'
   # }}}
+
+  # {{{
+  - title: 'Parameters in P->PP form-factor parametrization'
+    description: ''
+    parameters:
+      # Masses used in [HKVDWVT:2024A]
+      'mass::pi^+@HKVDWVT2024' :
+          central: +0.13957
+          min:     +0.13957
+          max:     +0.13957
+          unit:     'GeV'
+          latex:    '$m_{\pi^+}^\mathrm{HKVDWVT}$'
+      'mass::pi^0@HKVDWVT2024' :
+          central: +0.135
+          min:     +0.135
+          max:     +0.135
+          unit:     'GeV'
+          latex:    '$m_{\pi^0}^\mathrm{HKVDWVT}$'
+      'mass::B_u@HKVDWVT2024' :
+          central: +5.279
+          min:     +5.279
+          max:     +5.279
+          unit:     'GeV'
+          latex:    '$m_{B^+}^\mathrm{HKVDWVT}$'
+      'mass::B_d@HKVDWVT2024' :
+          central: +5.279
+          min:     +5.279
+          max:     +5.279
+          unit:     'GeV'
+          latex:    '$m_{B^0}^\mathrm{HKVDWVT}$'
+      'mass::Bstar@HKVDWVT2024' :
+          central: +5.324
+          min:     +5.324
+          max:     +5.324
+          unit:     'GeV'
+          latex:    '$m_{B^\ast}^\mathrm{HKVDWVT}$'
+      # Input for the conformal mappings
+      'B->pipi::tp_a@HKVDWVT2024' :
+          central: +29.8
+          min:     +29.8
+          max:     +29.8
+          comment:  '(Mbstar + mpi0)^2'
+          unit:     'GeV^2'
+          latex:    '$t^+_a$'
+      'B->pipi::tp_v@HKVDWVT2024' :
+          central: +29.8
+          min:     +29.8
+          max:     +29.8
+          comment:  '(Mbstar + mpi0)^2'
+          unit:     'GeV^2'
+          latex:    '$t^+_v$'
+      'B->pipi::t0@HKVDWVT2024' :
+          central: +0.0
+          min:     +0.0
+          max:     +0.0
+          unit:     'GeV^2'
+          latex:    '$t_0$'
+      'B->pipi::sin@HKVDWVT2024' :
+          central: +0.81
+          min:     +0.81
+          max:     +0.81
+          unit:     'GeV^2'
+          latex:    '$t_0$'
+      'B->pipi::s0@HKVDWVT2024' :
+          central: +0.07792
+          min:     +0.07792
+          max:     +0.07792
+          unit:     'GeV^2'
+          latex:    '$s_0$'
+      'B->pipi::a^%1%_%2%_%3%@HKVDWVT2024' :
+          central:  0.
+          min:     -1.0
+          max:     +1.0
+          unit:     '1'
+          latex:    '$a_{%2%,%3%}^{%1%,B \to \pi\pi,\mathrm{HKVDWVT2024}}$'
+          matrix:
+            - ["g_1", "g_2", "f_1", "f_2", "F1_1", "F1_2", "F2_1", "F2_2"]
+            - [0, 1, 2]
+            - [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+
+  # }}}
