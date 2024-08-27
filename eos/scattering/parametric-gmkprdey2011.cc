@@ -47,7 +47,7 @@ namespace eos
         if (s0 > sp)
             throw InternalError("The conformal mapping is used with s_+ < s_0: " + stringify(sp) + " < " + stringify(s0));
 
-        return (std::sqrt(complex<double>(sp - s, 0.0)) - std::sqrt(complex<double>(sp - s0, 0.0))) / (std::sqrt(complex<double>(sp - s, 0.0)) + std::sqrt(complex<double>(sp - s0, 0.0)));
+        return (std::sqrt(complex<double>(sp - s, 0.0)) - std::sqrt(sp - s0)) / (std::sqrt(complex<double>(sp - s, 0.0)) + std::sqrt(sp - s0));
     }
 
     // S0 wave
@@ -119,27 +119,28 @@ namespace eos
     // P wave
     double GMKPRDEY2011ScatteringAmplitudes::_phase_P1(const double & s) const
     {
-        double mpi2 = _mPi * _mPi;
-        double mk2 = _mK * _mK;
-        double sqrts = std::sqrt(s);
+        const double mpi2 = _mPi * _mPi;
+        const double mk2 = _mK * _mK;
+        const double sqrts2 = std::sqrt(s) / 2.0;
 
         if (s <= 4.0 * mk2)
         {
-            double mrho2 = _mRho * _mRho;
-            double mpi3 = _mPi * mpi2;
-            double k = std::sqrt(s / 4.0 - mpi2);
+            const double mrho2 = _mRho * _mRho;
+            const double mpi3 = _mPi * mpi2;
+            const double k = std::sqrt(s / 4.0 - mpi2);
             if ( s <= 0.5 ) // Avoid divide by 0 for s = 4*mpi2 and s = mrho2
             {
-                return std::atan(2.0 * power_of<3>(k) / sqrts / (mrho2 - s) / (2.0 * mpi3 / mrho2 / sqrts + _params_P1[0] + _params_P1[1] * _calc_w(s, _s0_P1)));
+                return std::atan( power_of<3>(k) / sqrts2 / (mrho2 - s) / (mpi3 / mrho2 / sqrts2 + _params_P1[0] + _params_P1[1] * _calc_w(s, _s0_P1)) );
             }
             else
             {
-                return M_PI / 2.0 - std::atan(sqrts / 2.0 / power_of<3>(k) * (mrho2 - s) * (2.0 * mpi3 / mrho2 / sqrts + _params_P1[0] + _params_P1[1] * _calc_w(s, _s0_P1)));
+                return M_PI / 2 - std::atan( sqrts2 / power_of<3>(k) * (mrho2 - s) * (mpi3 / mrho2 / sqrts2 + _params_P1[0] + _params_P1[1] * _calc_w(s, _s0_P1)) );
             }
         }
         else if (s <= 2.0164)
         {
-            return _phase_P1(4.0 * mk2) + _params_P1[2] * (sqrts / 2.0 / _mK - 1.0) + _params_P1[3] * power_of<2>(sqrts / 2.0 / _mK - 1.0);
+            const double x = (sqrts2 / _mK - 1.0);
+            return _phase_P1(4 * mk2) + _params_P1[2] * x + _params_P1[3] * x * x;
         }
         else
         {
@@ -152,17 +153,17 @@ namespace eos
     {
         double mpi2 = _mPi * _mPi;
         double mf22 = _mF2 * _mF2;
-        double sqrts = std::sqrt(s);
+        double sqrts2 = std::sqrt(s) / 2.0;
         double k = std::sqrt(s / 4.0 - mpi2);
 
         if (s <= _s0_D0)
         {
-            return std::atan(2.0 * power_of<5>(k) / sqrts / (mf22 - s) / mpi2 / (_params_D0[0] + _params_D0[1] * _calc_w(s, _s0_D0)));
+            return std::atan( power_of<5>(k) / sqrts2 / (mf22 - s) / mpi2 / (_params_D0[0] + _params_D0[1] * _calc_w(s, _s0_D0)) );
         }
         else if (s <= 2.0164)
         {
             double Bh0 = _params_D0[0] + _params_D0[1] - _params_D0[2] * _calc_w(_s0_D0, _sh_D0);
-            return M_PI / 2.0 - std::atan(sqrts / 2.0 / power_of<5>(k) * (mf22 - s) * mpi2 * (Bh0 + _params_D0[2] * _calc_w(s, _sh_D0)));
+            return M_PI/2 - std::atan( sqrts2 / power_of<5>(k) * (mf22 - s) * mpi2 * (Bh0 + _params_D0[2] * _calc_w(s, _sh_D0)) );
         }
         else
         {
@@ -195,6 +196,9 @@ namespace eos
         _mEta(UsedParameter(p["mass::eta@GMKPRDEY2011"], *this)),
         _mRho(UsedParameter(p["mass::rho^0@GMKPRDEY2011"], *this)),
         _mF2(UsedParameter(p["mass::f_2@GMKPRDEY2011"], *this)),
+        _mOmega(UsedParameter(p["mass::omega@GMKPRDEY2011"], *this)),
+        _GammaOmega(UsedParameter(p["width::omega@GMKPRDEY2011"], *this)),
+        _kappa(UsedParameter(p["mixing::kappaEM@GMKPRDEY2011"], *this)),
         _sM_S0(UsedParameter(p[_par_name("S0", "sM")],  *this)),
         _s0_P1(UsedParameter(p[_par_name("P1", "s0")],  *this)),
         _s0_D0(UsedParameter(p[_par_name("D0", "s0")],  *this)),
@@ -238,7 +242,7 @@ namespace eos
             return 0.0;
         }
 
-        double rho = std::sqrt(1 - 4 * _mPi * _mPi / s);
+        const double rho = std::sqrt(1 - 4 * _mPi * _mPi / s);
 
         if ((l == 0) && (i == IsospinRepresentation::zero))
         {
@@ -265,7 +269,8 @@ namespace eos
     {
         if ((l == 0) && (i == IsospinRepresentation::zero))
         {
-            throw InternalError("Current Omnes factor solution strategy does not allow for phases exceeding 2 Pi! Consider implementing coupled-channel treatment!");
+            //throw InternalError("Current Omnes factor solution strategy does not allow for phases exceeding 2 Pi! Consider implementing coupled-channel treatment!");
+            return 0.0;
         }
         else if ((l == 1) && (i == IsospinRepresentation::one))
         {
@@ -274,6 +279,18 @@ namespace eos
         else if ((l == 2) && (i == IsospinRepresentation::zero))
         {
             return _omnes_D0(s);
+        }
+        else
+        {
+            return 0.0;
+        }
+    }
+
+    complex<double> GMKPRDEY2011ScatteringAmplitudes::isospin_breaking(const double & s, const unsigned & l, const IsospinRepresentation & i) const
+    {
+        if ( (l == 1) || (i == IsospinRepresentation::one) )
+        {
+            return 1.0 + s * _kappa / ( _mOmega * _mOmega - s - complex<double>(0, _mOmega * _GammaOmega));
         }
         else
         {

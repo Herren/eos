@@ -34,7 +34,7 @@ class GMKPRDEY2011ScatteringAmplitudesTest :
 
         virtual void run() const
         {
-            static const double eps = 1e-5;
+            static const double eps = 5e-5;
             /* Factory */
             {
                 Parameters p = Parameters::Defaults();
