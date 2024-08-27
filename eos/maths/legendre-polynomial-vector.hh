@@ -129,7 +129,7 @@ namespace eos
             // but keep us from going into an infinite loop if we really
             // hit a point where things do not converge.
             LegendreReQVector() :
-                _eps(1e-14),
+                _eps(1e-10),
                 _cut(1000)
             {
             }
@@ -189,22 +189,21 @@ namespace eos
                     }
                     else
                     {
-                        double q2 = 1 / z;
-                        double q1 = 1;
-                        for (unsigned i = 1 ; i <= order_ ; i++)
+                        const double zpm1 = 1 / z;
+                        const double z2 = z * z;
+                        double q2 = zpm1;
+                        for (unsigned i = 1 ; i <= order_ - 1; i++)
                         {
-                            q2 *= i / z / (2 * i + 1);
-                            if (i == order_ - 1)
-                            {
-                                q1 = q2;
-                            }
+                            q2 *= i * zpm1 / (2 * i + 1);
                         }
+                        const double q1 = q2;
+                        q2 *= order_ * zpm1 / (2 * order_ + 1);
 
                         double t1 = 1;
                         double qr = 1;
                         for (unsigned k = 1 ; k <= _cut ; k++)
                         {
-                            qr *= (order_ / 2.0 + k - 1) * (k + (order_ - 1) / 2.0) / (z * z * k * ((order_ + k) - 1.0 / 2.0));
+                            qr *= (order_ / 2.0 + k - 1) * (k + (order_ - 1) / 2.0) / (z2 * k * ((order_ + k) - 1.0 / 2.0));
                             t1 += qr;
                             if (std::abs(qr / t1) < _eps)
                             {
@@ -221,7 +220,7 @@ namespace eos
                         qr = 1;
                         for (unsigned k = 1 ; k <= _cut ; k++)
                         {
-                            qr *= ((order_ + 1) / 2.0 + k - 1) * (k + order_ / 2.0) / (z * z * k * ((order_ + 1 + k) - 1.0 / 2.0));
+                            qr *= ((order_ + 1) / 2.0 + k - 1) * (k + order_ / 2.0) / (z2 * k * ((order_ + 1 + k) - 1.0 / 2.0));
                             t2 += qr;
                             if (std::abs(qr / t2) < _eps)
                             {
