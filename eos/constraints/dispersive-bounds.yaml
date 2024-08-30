@@ -186,4 +186,20 @@ b->s::Bound[1^+_T5]:
     options: [ {}, {}, {}, {}, {}, {} ]
     bound: 1.0
     uncertainty: 0.1
+b->pipi::Bound[1^-_T]:
+    type: UniformBound
+    observables:
+        - 'B^+->pi^+pi^-lnu::bound_1m'
+    kinematics: [ {} ]
+    options: [ {} ]
+    bound: 0.91
+    uncertainty: 0.05
+b->pipi::Bound[1^+_T]:
+    type: UniformBound
+    observables:
+        - 'B^+->pi^+pi^-lnu::bound_1p'
+    kinematics: [ {}]
+    options: [ {} ]
+    bound: 1.0
+    uncertainty: 0.05
 # }}}
