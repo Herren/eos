@@ -338,6 +338,7 @@ namespace eos
         { "B->pi::BCL2008-4",    &BCL2008FormFactors<BToPi, 4u>::make                                                                                         },
         { "B->pi::BCL2008-5",    &BCL2008FormFactors<BToPi, 5u>::make                                                                                         },
         { "B->pi::BSZ2015",      &BSZ2015FormFactors<BToPi,  PToP>::make                                                                                      },
+        { "B->pi::BFW2010",      &BFW2010FormFactors<BToPi,  PToP>::make                                                                                      },
         { "B_s->K::BFW2010",     &BFW2010FormFactors<BsToK,  PToP>::make                                                                                      },
         { "B_s->K::BSZ2015",     &BSZ2015FormFactors<BsToK,  PToP>::make                                                                                      },
         // b -> c
@@ -345,6 +346,7 @@ namespace eos
         { "B->D::BSZ2015",       &BSZ2015FormFactors<BToD,   PToP>::make                                                                                      },
         { "B->D::BGJvD2019",     &HQETFormFactors<BToD,      PToP>::make                                                                                      },
         { "B->D::BGL1997",       &BGL1997FormFactors<BToD>::make                                                                                              },
+        { "B->D::BFW2010",       &BFW2010FormFactors<BToD,   PToP>::make                                                                                      },
         { "B_s->D_s::BSZ2015",   &BSZ2015FormFactors<BsToDs, PToP>::make                                                                                      },
         { "B_s->D_s::BGJvD2019", &HQETFormFactors<BsToDs,    PToP>::make                                                                                      },
         // c -> d

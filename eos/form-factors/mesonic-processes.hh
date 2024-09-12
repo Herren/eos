@@ -57,6 +57,12 @@ namespace eos
         static constexpr const double m_P = 0.135;
         static constexpr const double mR2_1m = 5.325 * 5.325; // B_{u,d}^*
         static constexpr const double mR2_0p = 5.540 * 5.540; // B_{u,d} scalar: M(B_s scalar) - M(B_s^*) + M(B_{u,d}^*)
+        // Isospin-degeneracy factor
+        static constexpr double eta  = 3.0 / 2.0;
+        // OPE results for the unitarity bounds --> isospin symmetry, using results for d quarks
+        static constexpr double chi_0p_v  = 1.50e-2;
+        static constexpr double chi_1m_v  = 1.16e-2 / (4.2 * 4.2);
+        static constexpr double chi_1m_t  = 7.75e-3 / (4.2 * 4.2); // already divided by 4 due to different convention in [BFW:2010A]
         static constexpr const bool uses_tensor_form_factors = true;
     };
 
@@ -90,6 +96,11 @@ namespace eos
         // resonance masses from [HPQCD2015A]
         static constexpr const double mR2_1m = 6.330 * 6.330; // B_c^*
         static constexpr const double mR2_0p = 6.420 * 6.420; // B_c scalar
+        // Isospin-degeneracy factor
+        static constexpr double eta  = 2.0;
+        static constexpr double chi_0p_v  = 5.131e-4;
+        static constexpr double chi_1m_v  = 6.204e-3;
+        static constexpr double chi_1m_t  = 5.131e-4; // already divided by 4 due to different convention in [BFW:2010A]
         static constexpr const bool uses_tensor_form_factors = true;
         static constexpr const char * hqe_prefix = "B(*)->D(*)";
     };
