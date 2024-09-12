@@ -19,6 +19,7 @@
 
 #include <eos/scattering/scattering-amplitudes.hh>
 #include <eos/scattering/parametric-gmkprdey2011.hh>
+#include <eos/scattering/parametric-hkvdwvt2024.hh>
 #include <eos/utils/destringify.hh>
 #include <eos/utils/qualified-name.hh>
 
@@ -37,7 +38,8 @@ namespace eos
     const std::map<ScatteringAmplitudeFactory<PPToPP>::KeyType, ScatteringAmplitudeFactory<PPToPP>::ValueType>
     ScatteringAmplitudeFactory<PPToPP>::scattering_amplitudes
     {
-        { "pipi->pipi::GMKPRDEY2011",    &GMKPRDEY2011ScatteringAmplitudes::make    }
+        { "pipi->pipi::GMKPRDEY2011",   &GMKPRDEY2011ScatteringAmplitudes::make    },
+        { "pipi->pipi::HKVdWvT2024",    &HKVDWVT2024ScatteringAmplitudes::make    }
     };
 
     std::shared_ptr<ScatteringAmplitudes<PPToPP>>
