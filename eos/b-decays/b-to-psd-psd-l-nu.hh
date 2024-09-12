@@ -49,6 +49,7 @@ namespace eos
              * Observables
              */
             double double_differential_decay_width(const double & q2, const double & s) const;
+            double double_differential_decay_width_S(const double & q2, const double & s) const;
             double double_differential_decay_width_P(const double & q2, const double & s) const;
             double double_differential_decay_width_D(const double & q2, const double & s) const;
             double double_differential_decay_width_P_L(const double & q2, const double & s) const;
@@ -56,6 +57,7 @@ namespace eos
             double double_differential_decay_width_P_T(const double & q2, const double & s) const;
             double double_differential_decay_width_D_T(const double & q2, const double & s) const;
             double double_differential_branching_ratio(const double & q2, const double & s) const;
+            double double_differential_branching_ratio_S(const double & q2, const double & s) const;
             double double_differential_branching_ratio_P(const double & q2, const double & s) const;
             double double_differential_branching_ratio_D(const double & q2, const double & s) const;
             double double_differential_branching_ratio_P_L(const double & q2, const double & s) const;
@@ -64,10 +66,13 @@ namespace eos
             double double_differential_branching_ratio_D_T(const double & q2, const double & s) const;
             double integrated_branching_ratio(const double & q2_min, const double & q2_max, const double & sqrts_min, const double & sqrts_max) const;
             double fully_integrated_branching_ratio() const;
+            double fully_integrated_branching_ratio_S() const;
             double fully_integrated_branching_ratio_P() const;
             double fully_integrated_branching_ratio_D() const;
             double integrated_branching_ratio_q2(const double & q2) const;
             double integrated_branching_ratio_sqrts(const double & sqrts) const;
+            double integrated_branching_ratio_q2_S(const double & q2) const;
+            double integrated_branching_ratio_sqrts_S(const double & sqrts) const;
             double integrated_branching_ratio_q2_P(const double & q2) const;
             double integrated_branching_ratio_sqrts_P(const double & sqrts) const;
             double integrated_branching_ratio_q2_D(const double & q2) const;

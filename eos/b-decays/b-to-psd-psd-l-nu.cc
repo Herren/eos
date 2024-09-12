@@ -255,7 +255,7 @@ namespace eos
             opt_int_points(o, "integration-points", {"256", "512", "1024", "2048", "4096", "8192", "16384"}, "4096"),
             int_points(destringify<int>(opt_int_points.value())),
             form_factors(FormFactorFactory<PToPP2>::create(_process() + "::" + o.get("form-factors", "HKVdWvT2024"), p, o)),
-            scattering_amplitudes(ScatteringAmplitudeFactory<PPToPP>::create(_scattering_amps() + "::" + o.get("scattering-amplitudes", "GMKPRDEY2011"), p, o))
+            scattering_amplitudes(ScatteringAmplitudeFactory<PPToPP>::create(_scattering_amps() + "::" + o.get("scattering-amplitudes", "HKVdWvT2024"), p, o))
         {
             Context ctx("When constructing B->PPlnu observable");
 
@@ -433,6 +433,38 @@ namespace eos
                 res2 += _imp->isospin_factor_2[l] * lamq3 * kin3 / 16.0 * std::norm(_imp->scattering_amplitudes->isospin_breaking(s, l, _imp->Ip2))
                                                   * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip2)) * std::norm(_imp->form_factors->v_perp(q2, s, l, true)) * l * (l + 1) * twolplus1;
             }
+        }
+
+        return 2.0 * pref * (res1 + res2);
+    }
+
+    double BToPPLeptonNeutrino::double_differential_decay_width_S(const double & q2, const double & s) const
+    {
+        const double lamq3 = (q2 - power_of<2>(_imp->m_B + std::sqrt(s))) * (q2 - power_of<2>(_imp->m_B - std::sqrt(s)));
+        const double lams12 = (s - power_of<2>(_imp->m_P1 + _imp->m_P2)) * (s - power_of<2>(_imp->m_P1 - _imp->m_P2));
+        if (lamq3 < 0.0 || lams12 < 0.0)
+            return 0.0;
+        const double kappa = std::sqrt(lams12) * std::sqrt(lamq3) / s;
+        const double ml2q2 = power_of<2>(_imp->m_l) / q2;
+        const double pref = std::norm(_imp->v_Ub()) * power_of<2>(_imp->g_fermi()) / power_of<3>(_imp->m_B) * q2 * power_of<2>(1.0 - ml2q2) * kappa / power_of<5>(4.0 * M_PI) / 4.0;
+        double res1 = 0.0;
+        double res2 = 0.0;
+
+        const double kin1 = ml2q2 / q2;
+        const double kin2 = (2.0 + ml2q2) / 12.0 / q2;
+        const double kin3 = lams12 / s * (2.0 + ml2q2) / 3.0;
+
+        // S-wave
+        if (_imp->isospin_factor_1[0] != 0.0)
+        {
+            res1 += _imp->isospin_factor_1[0] * kin1 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, 0, _imp->Ip1)) * std::norm(_imp->form_factors->a_t(q2, s, 0, false));
+            res1 += _imp->isospin_factor_1[0] * lamq3 * kin2 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, 0, _imp->Ip1)) * std::norm(_imp->form_factors->a_0(q2, s, 0, false));
+        }
+
+        if (_imp->isospin_factor_2[0] != 0.0)
+        {
+            res2 += _imp->isospin_factor_2[0] * kin1 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, 0, _imp->Ip2)) * std::norm(_imp->form_factors->a_t(q2, s, 0, true));
+            res2 += _imp->isospin_factor_2[0] * lamq3 * kin2 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, 0, _imp->Ip2)) * std::norm(_imp->form_factors->a_0(q2, s, 0, true));
         }
 
         return 2.0 * pref * (res1 + res2);
@@ -651,6 +683,11 @@ namespace eos
         return double_differential_decay_width(q2, s) * _imp->tau_B / _imp->hbar;
     }
 
+    double BToPPLeptonNeutrino::double_differential_branching_ratio_S(const double & q2, const double & s) const
+    {
+        return double_differential_decay_width_S(q2, s) * _imp->tau_B / _imp->hbar;
+    }
+
     double BToPPLeptonNeutrino::double_differential_branching_ratio_P(const double & q2, const double & s) const
     {
         return double_differential_decay_width_P(q2, s) * _imp->tau_B / _imp->hbar;
@@ -705,6 +742,24 @@ namespace eos
         {
             // Multiply by s -> sqrt(s) Jacobian
             return 2.0 * x[1] * this->double_differential_branching_ratio(x[0], x[1] * x[1]);
+        };
+
+        auto config_cubature = cubature::Config().epsrel(5e-3);
+
+        std::array<double, 2> x_min{ 1e-4, _imp->m_P1 + _imp->m_P2 };
+        std::array<double, 2> x_max{ power_of<2>(_imp->m_B - _imp->m_P1 - _imp->m_P2), _imp->m_B };
+
+        double res = integrate(integrand, x_min, x_max, config_cubature);
+        //std::cerr << "iBR: " << s_min << " " << s_max << " " << q2_min << " " << q2_max << " " << res << std::endl;
+        return res;
+    }
+
+    double BToPPLeptonNeutrino::fully_integrated_branching_ratio_S() const
+    {
+        std::function<double(const std::array<double, 2u> &)> integrand = [&] (const std::array<double, 2u> & x)
+        {
+            // Multiply by s -> sqrt(s) Jacobian
+            return 2.0 * x[1] * this->double_differential_branching_ratio_S(x[0], x[1] * x[1]);
         };
 
         auto config_cubature = cubature::Config().epsrel(5e-3);
@@ -776,6 +831,36 @@ namespace eos
         std::function<double(const double &)> integrand = [&] (const double & q2)
         {
             return 2 * sqrts * this->double_differential_branching_ratio(q2, sqrts * sqrts);
+        };
+
+        double res = integrate1D(integrand, _imp->int_points, q2_min, q2_max);
+        //std::cerr << "iBR: " << q2_min << " " << q2_max << " " << s_min << " " << s_max << " " << res << std::endl;
+        return res;
+    }
+
+    double BToPPLeptonNeutrino::integrated_branching_ratio_q2_S(const double & q2) const
+    {
+        double s_min = power_of<2>(_imp->m_P1 + _imp->m_P2);
+        double s_max = power_of<2>(_imp->m_B - std::sqrt(q2));
+
+        std::function<double(const double &)> integrand = [&] (const double & s)
+        {
+            return this->double_differential_branching_ratio_S(q2, s);
+        };
+
+        double res = integrate1D(integrand, _imp->int_points, s_min, s_max);
+        //std::cerr << "iBR: " << q2_min << " " << q2_max << " " << s_min << " " << s_max << " " << res << std::endl;
+        return res;
+    }
+
+    double BToPPLeptonNeutrino::integrated_branching_ratio_sqrts_S(const double & sqrts) const
+    {
+        double q2_min = 1e-4;
+        double q2_max = power_of<2>(_imp->m_B - sqrts);
+
+        std::function<double(const double &)> integrand = [&] (const double & q2)
+        {
+            return 2 * sqrts * this->double_differential_branching_ratio_S(q2, sqrts * sqrts);
         };
 
         double res = integrate1D(integrand, _imp->int_points, q2_min, q2_max);

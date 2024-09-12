@@ -55,13 +55,13 @@ class BToPiPiPWLeptonNeutrinoTest :
                 p["B->pipi::a^g_1_2_0@HKVDWVT2024"]    = -0.0498;
                 p["B->pipi::a^g_1_2_1@HKVDWVT2024"]    = -0.0810;*/
                 
-                //p["B->pipi::a^F1_2_1_0@HKVDWVT2024"] = 0.01;
-                //p["B->pipi::a^F1_2_1_5@HKVDWVT2024"] = -0.02;
+                p["B->pipi::a^F1_1_0_0@HKVDWVT2024"] = 0.1;
+                p["B->pipi::a^F1_1_0_1@HKVDWVT2024"] = -0.02;
                 Options oo
                 {
                     { "model",        "CKM" },
                     { "form-factors", "HKVdWvT2024" },
-                    { "scattering-amplitudes", "GMKPRDEY2011" },
+                    { "scattering-amplitudes", "HKVdWvT2024" },
                     { "integration-points", "2048" },
                     { "U",            "u"       },
                     { "q",            "u"       },
@@ -76,23 +76,23 @@ class BToPiPiPWLeptonNeutrinoTest :
                 //const double eps = 1e-5;
                 std::cerr << test.saturation_1_p() << std::endl;
                 std::cerr << test.saturation_1_m() << std::endl;
-                std::cerr << test.integrated_branching_ratio(1e-1, 8.0, 0.27914, 0.6) - 0.84e-5 << std::endl;
-                std::cerr << test.integrated_branching_ratio(8.0, 25.0, 0.27914, 0.6) - 1.18e-5 << std::endl;
-                std::cerr << test.integrated_branching_ratio(1e-1, 4.0, 0.6, 0.9) - 2.16e-5 << std::endl;
-                std::cerr << test.integrated_branching_ratio(4.0, 8.0, 0.6, 0.9) - 2.63e-5 << std::endl;
-                std::cerr << test.integrated_branching_ratio(8.0, 21.9, 0.6, 0.9) - 9.18e-5 << std::endl;
-                p["pipi->pipi::P1_B_0@GMKPRDEY2011"]    = 0.066;
-                std::cerr << test.integrated_branching_ratio(8.0, 21.9, 0.6, 0.9) - 9.18e-5 << std::endl;
+                std::cerr << test.integrated_branching_ratio(1e-1, 8.0, 0.27914, 0.6) << std::endl;
+                std::cerr << test.integrated_branching_ratio(8.0, 25.0, 0.27914, 0.6) << std::endl;
+                std::cerr << test.integrated_branching_ratio(1e-1, 4.0, 0.6, 0.9) << std::endl;
+                std::cerr << test.integrated_branching_ratio(4.0, 8.0, 0.6, 0.9) << std::endl;
+                std::cerr << test.integrated_branching_ratio(8.0, 21.9, 0.6, 0.9) << std::endl;
+                //p["pipi->pipi::P1_B_0@GMKPRDEY2011"]    = 0.066;
+                //std::cerr << test.integrated_branching_ratio(8.0, 21.9, 0.6, 0.9) - 9.18e-5 << std::endl;
                 /*std::cerr << test.integrated_branching_ratio(1e-1, 4.0, 0.81, 1.44) - 0.70e-5 << std::endl;
                 std::cerr << test.integrated_branching_ratio(4.0, 8.0, 0.81, 1.44) - 0.64e-5 << std::endl;
                 std::cerr << test.integrated_branching_ratio(8.0, 19.2, 0.81, 1.44) - 1.78e-5 << std::endl;
                 std::cerr << test.integrated_branching_ratio(1e-1, 4.0, 1.44, 2.52) - 0.91e-5 << std::endl;
                 std::cerr << test.integrated_branching_ratio(4.0, 8.0, 1.44, 2.25) - 0.72e-5 << std::endl;
                 std::cerr << test.integrated_branching_ratio(8.0, 16.7, 1.44, 2.25) - 0.93e-5 << std::endl;
-                std::cerr << test.integrated_branching_ratio(1e-1, 4.0, 2.25, 27.87) - 0.79e-5 << std::endl;
-                std::cerr << test.integrated_branching_ratio(4.0, 14.3, 2.25, 10.75) - 0.56e-5 << std::endl;
-                std::cerr << test.integrated_branching_ratio(8.0, 25.0, 0.36, 0.81) << std::endl;*/
-                /*std::cerr << test.double_differential_branching_ratio(0.1, 0.5) << " " << test.double_differential_branching_ratio(2.0, 0.5) << " "
+                std::cerr << test.integrated_branching_ratio(1e-1, 4.0, 2.25, 5.279) - 0.79e-5 << std::endl;
+                std::cerr << test.integrated_branching_ratio(4.0, 14.3, 2.25, 5.279) - 0.56e-5 << std::endl;
+                std::cerr << test.integrated_branching_ratio(8.0, 25.0, 0.36, 0.81) << std::endl;
+                std::cerr << test.double_differential_branching_ratio(0.1, 0.5) << " " << test.double_differential_branching_ratio(2.0, 0.5) << " "
                           << test.double_differential_branching_ratio(4.0, 0.5) << " " << test.double_differential_branching_ratio(8.0, 0.5)
                           << " " << test.double_differential_branching_ratio(18.0, 0.5) << " " << test.double_differential_branching_ratio(20.0, 0.5) << std::endl;*/
 
