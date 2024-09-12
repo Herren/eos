@@ -1925,6 +1925,12 @@ namespace eos
                         std::make_tuple(),
                         { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
 
+                make_observable("B^+->pi^+pi^-lnu::BR0S", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
+                        Unit::None(),
+                        &BToPPLeptonNeutrino::fully_integrated_branching_ratio_S,
+                        std::make_tuple(),
+                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
+
                 make_observable("B^+->pi^+pi^-lnu::BR0P", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
                         Unit::None(),
                         &BToPPLeptonNeutrino::fully_integrated_branching_ratio_P,
@@ -1952,6 +1958,18 @@ namespace eos
                 make_observable("B^+->pi^+pi^-lnu::BRMpipi", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
                         Unit::None(),
                         &BToPPLeptonNeutrino::integrated_branching_ratio_sqrts,
+                        std::make_tuple("sqrts"),
+                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
+
+                make_observable("B^+->pi^+pi^-lnu::BRq2S", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
+                        Unit::None(),
+                        &BToPPLeptonNeutrino::integrated_branching_ratio_q2_S,
+                        std::make_tuple("q2"),
+                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
+
+                make_observable("B^+->pi^+pi^-lnu::BRMpipiS", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
+                        Unit::None(),
+                        &BToPPLeptonNeutrino::integrated_branching_ratio_sqrts_S,
                         std::make_tuple("sqrts"),
                         { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
 
