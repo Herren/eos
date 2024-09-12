@@ -8,9 +8,11 @@ libeosscattering_la_SOURCES = \
     ee-to-ccbar.cc ee-to-ccbar.hh \
     observables.cc observables.hh \
     parametric-gmkprdey2011.hh parametric-gmkprdey2011.cc \
+    parametric-hkvt2025.hh parametric-hkvt2025.cc \
     scattering-amplitudes.cc scattering-amplitudes.hh scattering-amplitudes-fwd.hh \
     single-channel.cc single-channel.hh \
-    single-channel-processes.hh
+    single-channel-processes.hh \
+    svalues-CHS.hh delvalues-CHS.hh
 libeosscattering_la_LIBADD = \
     $(top_builddir)/eos/utils/libeosutils.la \
     -lgslcblas \
@@ -20,6 +22,7 @@ include_eos_scatteringdir = $(includedir)/eos/scattering
 include_eos_scattering_HEADERS = \
     ee-to-ccbar.hh \
     parametric-gmkprdey2011.hh \
+    parametric-hkvt2025.hh \
     scattering-amplitudes.hh
 
 EXTRA_DIST =
@@ -30,6 +33,7 @@ AM_TESTS_ENVIRONMENT = \
 TESTS = \
     ee-to-ccbar_TEST \
     parametric-gmkprdey2011_TEST \
+    parametric-hkvt2025_TEST \
     single-channel_TEST
 
 LDADD = \
@@ -42,5 +46,7 @@ check_PROGRAMS = $(TESTS)
 ee_to_ccbar_TEST_SOURCES = ee-to-ccbar_TEST.cc
 
 parametric_gmkprdey2011_TEST_SOURCES = parametric-gmkprdey2011_TEST.cc
+
+parametric_hkvt2025_TEST_SOURCES = parametric-hkvt2025_TEST.cc
 
 single_channel_TEST_SOURCES = single-channel_TEST.cc
