@@ -52,65 +52,27 @@ namespace eos
             double double_differential_decay_width_S(const double & q2, const double & s) const;
             double double_differential_decay_width_P(const double & q2, const double & s) const;
             double double_differential_decay_width_D(const double & q2, const double & s) const;
-            double double_differential_decay_width_P_L(const double & q2, const double & s) const;
-            double double_differential_decay_width_D_L(const double & q2, const double & s) const;
-            double double_differential_decay_width_P_T(const double & q2, const double & s) const;
-            double double_differential_decay_width_D_T(const double & q2, const double & s) const;
             double double_differential_branching_ratio(const double & q2, const double & s) const;
             double double_differential_branching_ratio_S(const double & q2, const double & s) const;
             double double_differential_branching_ratio_P(const double & q2, const double & s) const;
             double double_differential_branching_ratio_D(const double & q2, const double & s) const;
-            double double_differential_branching_ratio_P_L(const double & q2, const double & s) const;
-            double double_differential_branching_ratio_D_L(const double & q2, const double & s) const;
-            double double_differential_branching_ratio_P_T(const double & q2, const double & s) const;
-            double double_differential_branching_ratio_D_T(const double & q2, const double & s) const;
             double integrated_branching_ratio(const double & q2_min, const double & q2_max, const double & sqrts_min, const double & sqrts_max) const;
             double fully_integrated_branching_ratio() const;
             double fully_integrated_branching_ratio_S() const;
             double fully_integrated_branching_ratio_P() const;
             double fully_integrated_branching_ratio_D() const;
             double integrated_branching_ratio_q2(const double & q2) const;
+            double integrated_branching_ratio_q2_smin_smax(const double & q2, const double & s_min, const double & s_max) const;
             double integrated_branching_ratio_sqrts(const double & sqrts) const;
             double integrated_branching_ratio_q2_S(const double & q2) const;
+            double integrated_branching_ratio_q2_S_smin_smax(const double & q2, const double & s_min, const double & s_max) const;
             double integrated_branching_ratio_sqrts_S(const double & sqrts) const;
             double integrated_branching_ratio_q2_P(const double & q2) const;
+            double integrated_branching_ratio_q2_P_smin_smax(const double & q2, const double & s_min, const double & s_max) const;
             double integrated_branching_ratio_sqrts_P(const double & sqrts) const;
             double integrated_branching_ratio_q2_D(const double & q2) const;
+            double integrated_branching_ratio_q2_D_smin_smax(const double & q2, const double & s_min, const double & s_max) const;
             double integrated_branching_ratio_sqrts_D(const double & sqrts) const;
-            double integrated_branching_ratio_s_P_L(const double & s) const;
-            double integrated_branching_ratio_s_P_T(const double & s) const;
-            double integrated_branching_ratio_s_D_L(const double & s) const;
-            double integrated_branching_ratio_s_D_T(const double & s) const;
-
-            /*!
-             * Pseudo-observables
-             */
-            double re_g_1_1(const double & q2, const double & s) const;
-            double re_g_2_1(const double & q2, const double & s) const;
-            double re_g_1_2(const double & q2, const double & s) const;
-            double re_g_2_2(const double & q2, const double & s) const;
-            double im_g_1_1(const double & q2, const double & s) const;
-            double im_g_2_1(const double & q2, const double & s) const;
-            double im_g_1_2(const double & q2, const double & s) const;
-            double im_g_2_2(const double & q2, const double & s) const;
-
-            double re_f_1_1(const double & q2, const double & s) const;
-            double re_f_2_1(const double & q2, const double & s) const;
-            double re_f_1_2(const double & q2, const double & s) const;
-            double re_f_2_2(const double & q2, const double & s) const;
-            double im_f_1_1(const double & q2, const double & s) const;
-            double im_f_2_1(const double & q2, const double & s) const;
-            double im_f_1_2(const double & q2, const double & s) const;
-            double im_f_2_2(const double & q2, const double & s) const;
-
-            /*double re_F1_1_1(const double & q2, const double & s) const;
-            double re_F1_2_1(const double & q2, const double & s) const;
-            double re_F1_1_2(const double & q2, const double & s) const;
-            double re_F1_2_2(const double & q2, const double & s) const;
-            double im_F1_1_1(const double & q2, const double & s) const;
-            double im_F1_2_1(const double & q2, const double & s) const;
-            double im_F1_1_2(const double & q2, const double & s) const;
-            double im_F1_2_2(const double & q2, const double & s) const;*/
 
             /*!
              * Descriptions of the process and its kinematics.

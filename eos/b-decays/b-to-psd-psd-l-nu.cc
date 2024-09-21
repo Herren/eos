@@ -550,134 +550,6 @@ namespace eos
         return 2.0 * pref * (res1 + res2);
     }
 
-    double BToPPLeptonNeutrino::double_differential_decay_width_P_L(const double & q2, const double & s) const
-    {
-        const double lamq3 = (q2 - power_of<2>(_imp->m_B + std::sqrt(s))) * (q2 - power_of<2>(_imp->m_B - std::sqrt(s)));
-        const double lams12 = (s - power_of<2>(_imp->m_P1 + _imp->m_P2)) * (s - power_of<2>(_imp->m_P1 - _imp->m_P2));
-        if (lamq3 < 0.0 || lams12 < 0.0)
-            return 0.0;
-        const double kappa = std::sqrt(lams12) * std::sqrt(lamq3) / s;
-        const double ml2q2 = power_of<2>(_imp->m_l) / q2;
-        const double pref = std::norm(_imp->v_Ub()) * power_of<2>(_imp->g_fermi()) / power_of<3>(_imp->m_B) * q2 * power_of<2>(1.0 - ml2q2) * kappa / power_of<5>(4.0 * M_PI) / 4.0;
-        double res1 = 0.0;
-        double res2 = 0.0;
-
-        const double kin1 = ml2q2 / q2;
-        const double kin2 = (2.0 + ml2q2) / 12.0 / q2;
-        const double kin3 = lams12 / s * (2.0 + ml2q2) / 3.0;
-
-        unsigned l = 1;
-        const double twolplus1 = 1.0 / (2 * l + 1);
-        if (_imp->isospin_factor_1[l] != 0.0)
-        {
-            res1 += _imp->isospin_factor_1[l] * kin1 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip1)) * std::norm(_imp->form_factors->a_t(q2, s, l, false)) * twolplus1;
-            res1 += _imp->isospin_factor_1[l] * kin2 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip1)) * std::norm(_imp->form_factors->a_0(q2, s, l, false)) * twolplus1;
-        }
-        if (_imp->isospin_factor_2[l] != 0.0)
-        {
-            res2 += _imp->isospin_factor_2[l] * kin1 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip2)) * std::norm(_imp->form_factors->a_t(q2, s, l, true)) * twolplus1;
-            res2 += _imp->isospin_factor_2[l] * kin2 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip2)) * std::norm(_imp->form_factors->a_0(q2, s, l, true)) * twolplus1;
-        }
-
-        return 2.0 * pref * (res1 + res2);
-    }
-
-    double BToPPLeptonNeutrino::double_differential_decay_width_P_T(const double & q2, const double & s) const
-    {
-        const double lamq3 = (q2 - power_of<2>(_imp->m_B + std::sqrt(s))) * (q2 - power_of<2>(_imp->m_B - std::sqrt(s)));
-        const double lams12 = (s - power_of<2>(_imp->m_P1 + _imp->m_P2)) * (s - power_of<2>(_imp->m_P1 - _imp->m_P2));
-        if (lamq3 < 0.0 || lams12 < 0.0)
-            return 0.0;
-        const double kappa = std::sqrt(lams12) * std::sqrt(lamq3) / s;
-        const double ml2q2 = power_of<2>(_imp->m_l) / q2;
-        const double pref = std::norm(_imp->v_Ub()) * power_of<2>(_imp->g_fermi()) / power_of<3>(_imp->m_B) * q2 * power_of<2>(1.0 - ml2q2) * kappa / power_of<5>(4.0 * M_PI) / 4.0;
-        double res1 = 0.0;
-        double res2 = 0.0;
-
-        const double kin1 = ml2q2 / q2;
-        const double kin2 = (2.0 + ml2q2) / 12.0 / q2;
-        const double kin3 = lams12 / s * (2.0 + ml2q2) / 3.0;
-
-        unsigned l = 1;
-        const double twolplus1 = 1.0 / (2 * l + 1);
-        if (_imp->isospin_factor_1[l] != 0.0)
-        {
-            res1 += _imp->isospin_factor_1[l] * kin3 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip1)) * std::norm(_imp->form_factors->a_par(q2, s, l, false)) * l * (l + 1) * twolplus1;
-            res1 += _imp->isospin_factor_1[l] * lamq3 * kin3 / 16.0 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip1)) * std::norm(_imp->form_factors->v_perp(q2, s, l, false)) * l * (l + 1) * twolplus1;
-        }
-        if (_imp->isospin_factor_2[l] != 0.0)
-        {
-            res2 += _imp->isospin_factor_2[l] * kin3 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip2)) * std::norm(_imp->form_factors->a_par(q2, s, l, true)) * l * (l + 1) * twolplus1;
-            res2 += _imp->isospin_factor_2[l] * lamq3 * kin3 / 16.0 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip2)) * std::norm(_imp->form_factors->v_perp(q2, s, l, true)) * l * (l + 1) * twolplus1;
-        }
-
-        return 2.0 * pref * (res1 + res2);
-    }
-
-    double BToPPLeptonNeutrino::double_differential_decay_width_D_L(const double & q2, const double & s) const
-    {
-        const double lamq3 = (q2 - power_of<2>(_imp->m_B + std::sqrt(s))) * (q2 - power_of<2>(_imp->m_B - std::sqrt(s)));
-        const double lams12 = (s - power_of<2>(_imp->m_P1 + _imp->m_P2)) * (s - power_of<2>(_imp->m_P1 - _imp->m_P2));
-        if (lamq3 < 0.0 || lams12 < 0.0)
-            return 0.0;
-        const double kappa = std::sqrt(lams12) * std::sqrt(lamq3) / s;
-        const double ml2q2 = power_of<2>(_imp->m_l) / q2;
-        const double pref = std::norm(_imp->v_Ub()) * power_of<2>(_imp->g_fermi()) / power_of<3>(_imp->m_B) * q2 * power_of<2>(1.0 - ml2q2) * kappa / power_of<5>(4.0 * M_PI) / 4.0;
-        double res1 = 0.0;
-        double res2 = 0.0;
-
-        const double kin1 = ml2q2 / q2;
-        const double kin2 = (2.0 + ml2q2) / 12.0 / q2;
-        const double kin3 = lams12 / s * (2.0 + ml2q2) / 3.0;
-
-        unsigned l = 2;
-        const double twolplus1 = 1.0 / (2 * l + 1);
-        if (_imp->isospin_factor_1[l] != 0.0)
-        {
-            res1 += _imp->isospin_factor_1[l] * kin1 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip1)) * std::norm(_imp->form_factors->a_t(q2, s, l, false)) * twolplus1;
-            res1 += _imp->isospin_factor_1[l] * kin2 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip1)) * std::norm(_imp->form_factors->a_0(q2, s, l, false)) * twolplus1;
-        }
-        if (_imp->isospin_factor_2[l] != 0.0)
-        {
-            res2 += _imp->isospin_factor_2[l] * kin1 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip2)) * std::norm(_imp->form_factors->a_t(q2, s, l, true)) * twolplus1;
-            res2 += _imp->isospin_factor_2[l] * kin2 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip2)) * std::norm(_imp->form_factors->a_0(q2, s, l, true)) * twolplus1;
-        }
-
-        return 2.0 * pref * (res1 + res2);
-    }
-
-    double BToPPLeptonNeutrino::double_differential_decay_width_D_T(const double & q2, const double & s) const
-    {
-        const double lamq3 = (q2 - power_of<2>(_imp->m_B + std::sqrt(s))) * (q2 - power_of<2>(_imp->m_B - std::sqrt(s)));
-        const double lams12 = (s - power_of<2>(_imp->m_P1 + _imp->m_P2)) * (s - power_of<2>(_imp->m_P1 - _imp->m_P2));
-        if (lamq3 < 0.0 || lams12 < 0.0)
-            return 0.0;
-        const double kappa = std::sqrt(lams12) * std::sqrt(lamq3) / s;
-        const double ml2q2 = power_of<2>(_imp->m_l) / q2;
-        const double pref = std::norm(_imp->v_Ub()) * power_of<2>(_imp->g_fermi()) / power_of<3>(_imp->m_B) * q2 * power_of<2>(1.0 - ml2q2) * kappa / power_of<5>(4.0 * M_PI) / 4.0;
-        double res1 = 0.0;
-        double res2 = 0.0;
-
-        const double kin1 = ml2q2 / q2;
-        const double kin2 = (2.0 + ml2q2) / 12.0 / q2;
-        const double kin3 = lams12 / s * (2.0 + ml2q2) / 3.0;
-
-        unsigned l = 2;
-        const double twolplus1 = 1.0 / (2 * l + 1);
-        if (_imp->isospin_factor_1[l] != 0.0)
-        {
-            res1 += _imp->isospin_factor_1[l] * kin3 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip1)) * std::norm(_imp->form_factors->a_par(q2, s, l, false)) * l * (l + 1) * twolplus1;
-            res1 += _imp->isospin_factor_1[l] * lamq3 * kin3 / 16.0 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip1)) * std::norm(_imp->form_factors->v_perp(q2, s, l, false)) * l * (l + 1) * twolplus1;
-        }
-        if (_imp->isospin_factor_2[l] != 0.0)
-        {
-            res2 += _imp->isospin_factor_2[l] * kin3 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip2)) * std::norm(_imp->form_factors->a_par(q2, s, l, true)) * l * (l + 1) * twolplus1;
-            res2 += _imp->isospin_factor_2[l] * lamq3 * kin3 / 16.0 * std::norm(_imp->scattering_amplitudes->omnes_factor(s, l, _imp->Ip2)) * std::norm(_imp->form_factors->v_perp(q2, s, l, true)) * l * (l + 1) * twolplus1;
-        }
-
-        return 2.0 * pref * (res1 + res2);
-    }
-
     double BToPPLeptonNeutrino::double_differential_branching_ratio(const double & q2, const double & s) const
     {
         return double_differential_decay_width(q2, s) * _imp->tau_B / _imp->hbar;
@@ -696,26 +568,6 @@ namespace eos
     double BToPPLeptonNeutrino::double_differential_branching_ratio_D(const double & q2, const double & s) const
     {
         return double_differential_decay_width_D(q2, s) * _imp->tau_B / _imp->hbar;
-    }
-
-    double BToPPLeptonNeutrino::double_differential_branching_ratio_P_L(const double & q2, const double & s) const
-    {
-        return double_differential_decay_width_P_L(q2, s) * _imp->tau_B / _imp->hbar;
-    }
-
-    double BToPPLeptonNeutrino::double_differential_branching_ratio_D_L(const double & q2, const double & s) const
-    {
-        return double_differential_decay_width_D_L(q2, s) * _imp->tau_B / _imp->hbar;
-    }
-
-    double BToPPLeptonNeutrino::double_differential_branching_ratio_P_T(const double & q2, const double & s) const
-    {
-        return double_differential_decay_width_P_T(q2, s) * _imp->tau_B / _imp->hbar;
-    }
-
-    double BToPPLeptonNeutrino::double_differential_branching_ratio_D_T(const double & q2, const double & s) const
-    {
-        return double_differential_decay_width_D_T(q2, s) * _imp->tau_B / _imp->hbar;
     }
 
     double BToPPLeptonNeutrino::integrated_branching_ratio(const double & q2_min, const double & q2_max, const double & sqrts_min, const double & sqrts_max) const
@@ -823,6 +675,18 @@ namespace eos
         return res;
     }
 
+    double BToPPLeptonNeutrino::integrated_branching_ratio_q2_smin_smax(const double & q2, const double & s_min, const double & s_max) const
+    {
+        std::function<double(const double &)> integrand = [&] (const double & s)
+        {
+            return this->double_differential_branching_ratio(q2, s);
+        };
+
+        double res = integrate1D(integrand, _imp->int_points, s_min, s_max);
+        //std::cerr << "iBR: " << q2_min << " " << q2_max << " " << s_min << " " << s_max << " " << res << std::endl;
+        return res;
+    }
+
     double BToPPLeptonNeutrino::integrated_branching_ratio_sqrts(const double & sqrts) const
     {
         double q2_min = 1e-4;
@@ -843,6 +707,18 @@ namespace eos
         double s_min = power_of<2>(_imp->m_P1 + _imp->m_P2);
         double s_max = power_of<2>(_imp->m_B - std::sqrt(q2));
 
+        std::function<double(const double &)> integrand = [&] (const double & s)
+        {
+            return this->double_differential_branching_ratio_S(q2, s);
+        };
+
+        double res = integrate1D(integrand, _imp->int_points, s_min, s_max);
+        //std::cerr << "iBR: " << q2_min << " " << q2_max << " " << s_min << " " << s_max << " " << res << std::endl;
+        return res;
+    }
+
+    double BToPPLeptonNeutrino::integrated_branching_ratio_q2_S_smin_smax(const double & q2, const double & s_min, const double & s_max) const
+    {
         std::function<double(const double &)> integrand = [&] (const double & s)
         {
             return this->double_differential_branching_ratio_S(q2, s);
@@ -883,6 +759,18 @@ namespace eos
         return res;
     }
 
+    double BToPPLeptonNeutrino::integrated_branching_ratio_q2_P_smin_smax(const double & q2, const double & s_min, const double & s_max) const
+    {
+        std::function<double(const double &)> integrand = [&] (const double & s)
+        {
+            return this->double_differential_branching_ratio_P(q2, s);
+        };
+
+        double res = integrate1D(integrand, _imp->int_points, s_min, s_max);
+        //std::cerr << "iBR: " << q2_min << " " << q2_max << " " << s_min << " " << s_max << " " << res << std::endl;
+        return res;
+    }
+
     double BToPPLeptonNeutrino::integrated_branching_ratio_sqrts_P(const double & sqrts) const
     {
         double q2_min = 1e-4;
@@ -913,6 +801,18 @@ namespace eos
         return res;
     }
 
+    double BToPPLeptonNeutrino::integrated_branching_ratio_q2_D_smin_smax(const double & q2, const double & s_min, const double & s_max) const
+    {
+        std::function<double(const double &)> integrand = [&] (const double & s)
+        {
+            return this->double_differential_branching_ratio_D(q2, s);
+        };
+
+        double res = integrate1D(integrand, _imp->int_points, s_min, s_max);
+        //std::cerr << "iBR: " << q2_min << " " << q2_max << " " << s_min << " " << s_max << " " << res << std::endl;
+        return res;
+    }
+
     double BToPPLeptonNeutrino::integrated_branching_ratio_sqrts_D(const double & sqrts) const
     {
         double q2_min = 1e-4;
@@ -927,187 +827,6 @@ namespace eos
         //std::cerr << "iBR: " << q2_min << " " << q2_max << " " << s_min << " " << s_max << " " << res << std::endl;
         return res;
     }
-
-    double BToPPLeptonNeutrino::integrated_branching_ratio_s_P_L(const double & s) const
-    {
-        double q2_min = 1e-4;
-        double q2_max = power_of<2>(_imp->m_B - std::sqrt(s));
-
-        std::function<double(const double &)> integrand = [&] (const double & q2)
-        {
-            return this->double_differential_branching_ratio_P_L(q2, s);
-        };
-
-        double res = integrate1D(integrand, _imp->int_points, q2_min, q2_max);
-        //std::cerr << "iBR: " << q2_min << " " << q2_max << " " << s_min << " " << s_max << " " << res << std::endl;
-        return res;
-    }
-
-    double BToPPLeptonNeutrino::integrated_branching_ratio_s_P_T(const double & s) const
-    {
-        double q2_min = 1e-4;
-        double q2_max = power_of<2>(_imp->m_B - std::sqrt(s));
-
-        std::function<double(const double &)> integrand = [&] (const double & q2)
-        {
-            return this->double_differential_branching_ratio_P_T(q2, s);
-        };
-
-        double res = integrate1D(integrand, _imp->int_points, q2_min, q2_max);
-        //std::cerr << "iBR: " << q2_min << " " << q2_max << " " << s_min << " " << s_max << " " << res << std::endl;
-        return res;
-    }
-
-    double BToPPLeptonNeutrino::integrated_branching_ratio_s_D_L(const double & s) const
-    {
-        double q2_min = 1e-4;
-        double q2_max = power_of<2>(_imp->m_B - std::sqrt(s));
-
-        std::function<double(const double &)> integrand = [&] (const double & q2)
-        {
-            return this->double_differential_branching_ratio_D_L(q2, s);
-        };
-
-        double res = integrate1D(integrand, _imp->int_points, q2_min, q2_max);
-        //std::cerr << "iBR: " << q2_min << " " << q2_max << " " << s_min << " " << s_max << " " << res << std::endl;
-        return res;
-    }
-
-    double BToPPLeptonNeutrino::integrated_branching_ratio_s_D_T(const double & s) const
-    {
-        double q2_min = 1e-4;
-        double q2_max = power_of<2>(_imp->m_B - std::sqrt(s));
-
-        std::function<double(const double &)> integrand = [&] (const double & q2)
-        {
-            return this->double_differential_branching_ratio_D_T(q2, s);
-        };
-
-        double res = integrate1D(integrand, _imp->int_points, q2_min, q2_max);
-        //std::cerr << "iBR: " << q2_min << " " << q2_max << " " << s_min << " " << s_max << " " << res << std::endl;
-        return res;
-    }
-
-    double BToPPLeptonNeutrino::re_g_1_1(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_1[1] * _imp->scattering_amplitudes->omnes_factor(s, 1, _imp->Ip1) * _imp->form_factors->v_perp(q2, s, 1, false)).real();
-    }
-
-    double BToPPLeptonNeutrino::re_g_2_1(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_2[1] * _imp->scattering_amplitudes->omnes_factor(s, 1, _imp->Ip2) * _imp->form_factors->v_perp(q2, s, 1, true)).real();
-    }
-
-    double BToPPLeptonNeutrino::re_g_1_2(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_1[2] * _imp->scattering_amplitudes->omnes_factor(s, 2, _imp->Ip1) * _imp->form_factors->v_perp(q2, s, 2, false)).real();
-    }
-
-    double BToPPLeptonNeutrino::re_g_2_2(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_2[2] * _imp->scattering_amplitudes->omnes_factor(s, 2, _imp->Ip2) * _imp->form_factors->v_perp(q2, s, 2, true)).real();
-    }
-
-    double BToPPLeptonNeutrino::im_g_1_1(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_1[1] * _imp->scattering_amplitudes->omnes_factor(s, 1, _imp->Ip1) * _imp->form_factors->v_perp(q2, s, 1, false)).imag();
-    }
-
-    double BToPPLeptonNeutrino::im_g_2_1(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_2[1] * _imp->scattering_amplitudes->omnes_factor(s, 1, _imp->Ip2) * _imp->form_factors->v_perp(q2, s, 1, true)).imag();
-    }
-
-    double BToPPLeptonNeutrino::im_g_1_2(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_1[2] * _imp->scattering_amplitudes->omnes_factor(s, 2, _imp->Ip1) * _imp->form_factors->v_perp(q2, s, 2, false)).imag();
-    }
-
-    double BToPPLeptonNeutrino::im_g_2_2(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_2[2] * _imp->scattering_amplitudes->omnes_factor(s, 2, _imp->Ip2) * _imp->form_factors->v_perp(q2, s, 2, true)).imag();
-    }
-
-    double BToPPLeptonNeutrino::re_f_1_1(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_1[1] * _imp->scattering_amplitudes->omnes_factor(s, 1, _imp->Ip1) * _imp->form_factors->a_par(q2, s, 1, false)).real();
-    }
-
-    double BToPPLeptonNeutrino::re_f_2_1(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_2[1] * _imp->scattering_amplitudes->omnes_factor(s, 1, _imp->Ip2) * _imp->form_factors->a_par(q2, s, 1, true)).real();
-    }
-
-    double BToPPLeptonNeutrino::re_f_1_2(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_1[2] * _imp->scattering_amplitudes->omnes_factor(s, 2, _imp->Ip1) * _imp->form_factors->a_par(q2, s, 2, false)).real();
-    }
-
-    double BToPPLeptonNeutrino::re_f_2_2(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_2[2] * _imp->scattering_amplitudes->omnes_factor(s, 2, _imp->Ip2) * _imp->form_factors->a_par(q2, s, 2, true)).real();
-    }
-
-    double BToPPLeptonNeutrino::im_f_1_1(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_1[1] * _imp->scattering_amplitudes->omnes_factor(s, 1, _imp->Ip1) * _imp->form_factors->a_par(q2, s, 1, false)).imag();
-    }
-
-    double BToPPLeptonNeutrino::im_f_2_1(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_2[1] * _imp->scattering_amplitudes->omnes_factor(s, 1, _imp->Ip2) * _imp->form_factors->a_par(q2, s, 1, true)).imag();
-    }
-
-    double BToPPLeptonNeutrino::im_f_1_2(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_1[2] * _imp->scattering_amplitudes->omnes_factor(s, 2, _imp->Ip1) * _imp->form_factors->a_par(q2, s, 2, false)).imag();
-    }
-
-    double BToPPLeptonNeutrino::im_f_2_2(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_2[2] * _imp->scattering_amplitudes->omnes_factor(s, 2, _imp->Ip2) * _imp->form_factors->a_par(q2, s, 2, true)).imag();
-    }
-
-    // TODO: lamq3
-    /*double BToPPLeptonNeutrino::re_F1_1_1(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_1[1] * _imp->scattering_amplitudes->omnes_factor(s, 1, _imp->Ip1) * _imp->form_factors->a_0(q2, s, 1, false)).real();
-    }
-
-    double BToPPLeptonNeutrino::re_F1_2_1(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_2[1] * _imp->scattering_amplitudes->omnes_factor(s, 1, _imp->Ip2) * _imp->form_factors->a_0(q2, s, 1, true)).real();
-    }
-
-    double BToPPLeptonNeutrino::re_F1_1_2(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_1[2] * _imp->scattering_amplitudes->omnes_factor(s, 2, _imp->Ip1) * _imp->form_factors->a_0(q2, s, 2, false)).real();
-    }
-
-    double BToPPLeptonNeutrino::re_F1_2_2(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_2[2] * _imp->scattering_amplitudes->omnes_factor(s, 2, _imp->Ip2) * _imp->form_factors->a_0(q2, s, 2, true)).real();
-    }
-
-    double BToPPLeptonNeutrino::im_F1_1_1(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_1[1] * _imp->scattering_amplitudes->omnes_factor(s, 1, _imp->Ip1) * _imp->form_factors->a_0(q2, s, 1, false)).imag();
-    }
-
-    double BToPPLeptonNeutrino::im_F1_2_1(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_2[1] * _imp->scattering_amplitudes->omnes_factor(s, 1, _imp->Ip2) * _imp->form_factors->a_0(q2, s, 1, true)).imag();
-    }
-
-    double BToPPLeptonNeutrino::im_F1_1_2(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_1[2] * _imp->scattering_amplitudes->omnes_factor(s, 2, _imp->Ip1) * _imp->form_factors->a_0(q2, s, 2, false)).imag();
-    }
-
-    double BToPPLeptonNeutrino::im_F1_2_2(const double & q2, const double & s) const
-    {
-        return (_imp->isospin_factor_2[2] * _imp->scattering_amplitudes->omnes_factor(s, 2, _imp->Ip2) * _imp->form_factors->a_0(q2, s, 2, true)).imag();
-    }*/
 
     const std::string
     BToPPLeptonNeutrino::description = "\
