@@ -282,6 +282,52 @@ namespace eos
     }
     // }}}
 
+    // B -> pi l nu
+    // {{{
+    ObservableGroup
+    make_b_to_eta_l_nu_group()
+    {
+        auto imp = new Implementation<ObservableGroup>(
+            R"(Observables in $B\to \eta \ell^-\bar\nu$ decays)",
+            R"(The option "l" selects the charged lepton flavor. The option "q" selects the spectator quark flavor. )"
+            R"(The option "form-factors" selects the form factor parametrization.)",
+            {
+                make_observable("B->etalnu::dBR/dq2", R"(d\mathcal{B}(B\to\eta\ell^-\bar\nu)/dq^2)",
+                        Unit::InverseGeV2(),
+                        &BToPseudoscalarLeptonNeutrino::differential_branching_ratio,
+                        std::make_tuple("q2"),
+                        Options{ { "U", "u" }, { "q", "u" }, { "I", "0" } }),
+
+                make_observable("B->etalnu::BR", R"(\mathcal{B}(B\to\eta\ell^-\bar\nu))",
+                        Unit::None(),
+                        &BToPseudoscalarLeptonNeutrino::integrated_branching_ratio,
+                        std::make_tuple("q2_min", "q2_max"),
+                        Options{ { "U", "u" }, { "q", "u" }, { "I", "0" } }),
+
+                make_observable("B->etalnu::width", R"(\Gamma(B\to\eta\ell^-\bar\nu))",
+                        Unit::None(),
+                        &BToPseudoscalarLeptonNeutrino::normalized_integrated_decay_width,
+                        std::make_tuple("q2_min", "q2_max"),
+                        Options{ { "U", "u" }, { "q", "u" }, { "I", "0" } }),
+
+                make_observable("B->etalnu::P(q2)", R"(dP(B\to\eta\ell^-\bar\nu)/dq^2)",
+                        Unit::InverseGeV2(),
+                        &BToPseudoscalarLeptonNeutrino::differential_pdf_q2,
+                        std::make_tuple("q2"),
+                        Options{ { "U", "u" }, { "q", "u" }, { "I", "0" } }),
+
+                make_observable("B->etalnu::P(q2_min,q2_max)", R"(P(B\to\eta\ell^-\bar\nu))",
+                        Unit::None(),
+                        &BToPseudoscalarLeptonNeutrino::integrated_pdf_q2,
+                        std::make_tuple("q2_min", "q2_max"),
+                        Options{ { "U", "u" }, { "q", "u" }, { "I", "0" } }),
+            }
+        );
+
+        return ObservableGroup(imp);
+    }
+    // }}}
+
     // B -> D l nu
     // {{{
     ObservableGroup
@@ -1955,6 +2001,12 @@ namespace eos
                         std::make_tuple("q2"),
                         { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
 
+                make_observable("B^+->pi^+pi^-lnu::BRq2interval", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
+                        Unit::None(),
+                        &BToPPLeptonNeutrino::integrated_branching_ratio_q2_smin_smax,
+                        std::make_tuple("q2", "s_min", "s_max"),
+                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
+
                 make_observable("B^+->pi^+pi^-lnu::BRMpipi", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
                         Unit::None(),
                         &BToPPLeptonNeutrino::integrated_branching_ratio_sqrts,
@@ -1965,6 +2017,12 @@ namespace eos
                         Unit::None(),
                         &BToPPLeptonNeutrino::integrated_branching_ratio_q2_S,
                         std::make_tuple("q2"),
+                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
+
+                make_observable("B^+->pi^+pi^-lnu::BRq2Sinterval", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
+                        Unit::None(),
+                        &BToPPLeptonNeutrino::integrated_branching_ratio_q2_S_smin_smax,
+                        std::make_tuple("q2", "s_min", "s_max"),
                         { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
 
                 make_observable("B^+->pi^+pi^-lnu::BRMpipiS", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
@@ -1979,6 +2037,12 @@ namespace eos
                         std::make_tuple("q2"),
                         { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
 
+                make_observable("B^+->pi^+pi^-lnu::BRq2Pinterval", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
+                        Unit::None(),
+                        &BToPPLeptonNeutrino::integrated_branching_ratio_q2_P_smin_smax,
+                        std::make_tuple("q2", "s_min", "s_max"),
+                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
+
                 make_observable("B^+->pi^+pi^-lnu::BRMpipiP", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
                         Unit::None(),
                         &BToPPLeptonNeutrino::integrated_branching_ratio_sqrts_P,
@@ -1991,34 +2055,16 @@ namespace eos
                         std::make_tuple("q2"),
                         { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
 
+                make_observable("B^+->pi^+pi^-lnu::BRq2Dinterval", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
+                        Unit::None(),
+                        &BToPPLeptonNeutrino::integrated_branching_ratio_q2_D_smin_smax,
+                        std::make_tuple("q2", "s_min", "s_max"),
+                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
+
                 make_observable("B^+->pi^+pi^-lnu::BRMpipiD", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
                         Unit::None(),
                         &BToPPLeptonNeutrino::integrated_branching_ratio_sqrts_D,
                         std::make_tuple("sqrts"),
-                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
-
-                make_observable("B^+->pi^+pi^-lnu::BRsPL", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
-                        Unit::None(),
-                        &BToPPLeptonNeutrino::integrated_branching_ratio_s_P_L,
-                        std::make_tuple("s"),
-                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
-
-                make_observable("B^+->pi^+pi^-lnu::BRsPT", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
-                        Unit::None(),
-                        &BToPPLeptonNeutrino::integrated_branching_ratio_s_P_T,
-                        std::make_tuple("s"),
-                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
-
-                make_observable("B^+->pi^+pi^-lnu::BRsDL", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
-                        Unit::None(),
-                        &BToPPLeptonNeutrino::integrated_branching_ratio_s_D_L,
-                        std::make_tuple("s"),
-                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
-
-                make_observable("B^+->pi^+pi^-lnu::BRsDT", R"(\mathcal{B}(B^-\to \pi^+\pi^- \ell^-\bar\nu))",
-                        Unit::None(),
-                        &BToPPLeptonNeutrino::integrated_branching_ratio_s_D_T,
-                        std::make_tuple("s"),
                         { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
 
                 make_observable("B^+->pi^+pi^-lnu::bound_1p", R"(\chi_{1^+})",
@@ -2031,61 +2077,7 @@ namespace eos
                         Unit::None(),
                         &BToPPLeptonNeutrino::saturation_1_m,
                         std::make_tuple(),
-                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
-
-                make_observable("B^+->pi^+pi^-lnu::re_g_1_1", R"(\mathrm{Re}(g_1^1(q^2,s)))",
-                        Unit::None(),
-                        &BToPPLeptonNeutrino::re_g_1_1,
-                        std::make_tuple("q2", "s"),
-                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
-                        
-
-                make_observable("B^+->pi^+pi^-lnu::re_g_2_1", R"(\mathrm{Re}(g_1^2(q^2,s)))",
-                        Unit::None(),
-                        &BToPPLeptonNeutrino::re_g_2_1,
-                        std::make_tuple("q2", "s"),
-                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
-                        
-
-                make_observable("B^+->pi^+pi^-lnu::re_g_1_2", R"(\mathrm{Re}(g_2^1(q^2,s)))",
-                        Unit::None(),
-                        &BToPPLeptonNeutrino::re_g_1_2,
-                        std::make_tuple("q2", "s"),
-                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
-                        
-
-                make_observable("B^+->pi^+pi^-lnu::re_g_2_2", R"(\mathrm{Re}(g_2^2(q^2,s)))",
-                        Unit::None(),
-                        &BToPPLeptonNeutrino::re_g_2_2,
-                        std::make_tuple("q2", "s"),
-                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
-
-                make_observable("B^+->pi^+pi^-lnu::re_f_1_1", R"(\mathrm{Re}(f_1^1(q^2,s)))",
-                        Unit::None(),
-                        &BToPPLeptonNeutrino::re_f_1_1,
-                        std::make_tuple("q2", "s"),
-                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
-                        
-
-                make_observable("B^+->pi^+pi^-lnu::re_f_2_1", R"(\mathrm{Re}(f_1^2(q^2,s)))",
-                        Unit::None(),
-                        &BToPPLeptonNeutrino::re_f_2_1,
-                        std::make_tuple("q2", "s"),
-                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
-                        
-
-                make_observable("B^+->pi^+pi^-lnu::re_f_1_2", R"(\mathrm{Re}(f_2^1(q^2,s)))",
-                        Unit::None(),
-                        &BToPPLeptonNeutrino::re_f_1_2,
-                        std::make_tuple("q2", "s"),
-                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
-                        
-
-                make_observable("B^+->pi^+pi^-lnu::re_f_2_2", R"(\mathrm{Re}(f_2^2(q^2,s)))",
-                        Unit::None(),
-                        &BToPPLeptonNeutrino::re_f_2_2,
-                        std::make_tuple("q2", "s"),
-                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} }),
+                        { { "U", "u" }, {"q", "u"}, {"I1", "1"}, {"I2", "1"}, {"C", "+-"} })
             }
         );
 
@@ -2475,6 +2467,7 @@ namespace eos
 
                 // B_{u,d} -> P l^- nubar
                 make_b_to_pi_l_nu_group(),
+                make_b_to_eta_l_nu_group(),
                 make_b_to_d_l_nu_group(),
 
                 // B_s -> P l^- nubar
