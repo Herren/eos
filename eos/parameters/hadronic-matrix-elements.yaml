@@ -59,6 +59,12 @@ groups:
           max:     +0.135
           latex:    '$m_{\pi^\pm}^\mathrm{BSZ}$'
           unit:     'GeV'
+      'mass::eta@BSZ2015' :
+          central: +0.547
+          min:     +0.547
+          max:     +0.547
+          latex:    '$m_{\eta}^\mathrm{BSZ}$'
+          unit:     'GeV'
       'mass::K_d@BSZ2015' :
           central: +0.492
           min:     +0.492
@@ -5843,5 +5849,74 @@ groups:
             - ["g_1", "g_2", "f_1", "f_2", "F1_1", "F1_2", "F2_1", "F2_2"]
             - [0, 1, 2]
             - [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+      # form factor parameters for B->D for [BFW:2010A] parametrization
+      'B->D::a^%1%_%2%@BFW2010' :
+          central:  0.
+          min:     -1.0
+          max:     +1.0
+          unit:     '1'
+          latex:    '$a_%2%^{%1%,B \to D,\mathrm{BFW2010}}$'
+          matrix:
+            - ["f+", "f0", "fT"]
+            - [0, 1, 2, 3, 4]
+      'B->D::t0@BFW2010' :
+          central:  0.0
+          min:      0.0
+          max:      0.0
+          latex:   '$t_0^{B\to D}$'
+          unit:     'GeV'
+      'B->D::tp@BFW2010' :
+          central:  51.1082
+          min:      51.1082
+          max:      51.1082
+          latex:    '$t_+^{B\to D}$'
+          comment:  '(mB + mD)^2'
+          unit:     'GeV^2'
+     
+      # form factor parameters for B->D for [BFW:2010A] parametrization
+      'B->pi::a^%1%_%2%@BFW2010' :
+          central:  0.
+          min:     -1.0
+          max:     +1.0
+          unit:     '1'
+          latex:    '$a_%2%^{%1%,B \to pi,\mathrm{BFW2010}}$'
+          matrix:
+            - ["f+", "f0", "fT"]
+            - [0, 1, 2, 3, 4]
+      'B->pi::t0@BFW2010' :
+          central:  20.1705
+          min:      20.1705
+          max:      20.1705
+          latex:   '$t_0^{B\to \pi}$'
+          unit:     'GeV'
+      'B->pi::tp@BFW2010' :
+          central:  29.3114
+          min:      29.3114
+          max:      29.3114
+          latex:    '$t_+^{B\to \pi}$'
+          comment:  '(mB + mpi)^2'
+          unit:     'GeV^2'
+      'B->eta::a^%1%_%2%@BFW2010' :
+          central:  0.
+          min:     -1.0
+          max:     +1.0
+          unit:     '1'
+          latex:    '$a_%2%^{%1%,B \to \eta,\mathrm{BFW2010}}$'
+          matrix:
+            - ["f+", "f0", "fT"]
+            - [0, 1, 2, 3, 4]
+      'B->eta::t0@BFW2010' :
+          central:  14.142058
+          min:      14.142058
+          max:      14.142058
+          latex:   '$t_0^{B\to \eta}$'
+          unit:     'GeV'
+      'B->eta::tp@BFW2010' :
+          central:  33.942276
+          min:      33.942276
+          max:      33.942276
+          latex:    '$t_+^{B\to \eta}$'
+          comment:  '(mB + meta)^2'
+          unit:     'GeV^2'
 
   # }}}
