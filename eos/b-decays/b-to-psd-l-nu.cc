@@ -438,6 +438,7 @@ namespace eos
         { { QuarkFlavor::charm, QuarkFlavor::down,    "1/2" }, { "B->D",     "B_d", "D_d",  1.0                  } },
         { { QuarkFlavor::charm, QuarkFlavor::strange, "0"   }, { "B_s->D_s", "B_s", "D_s",  1.0                  } },
         { { QuarkFlavor::up,    QuarkFlavor::up,      "1"   }, { "B->pi",    "B_u", "pi^0", 1.0 / std::sqrt(2.0) } },
+        { { QuarkFlavor::up,    QuarkFlavor::up,      "0"   }, { "B->eta",   "B_u", "eta",  1.0                  } },
         { { QuarkFlavor::up,    QuarkFlavor::down,    "1"   }, { "B->pi",    "B_d", "pi^+", 1.0                  } },
         { { QuarkFlavor::up,    QuarkFlavor::strange, "1/2" }, { "B_s->K",   "B_s", "K_u",  1.0                  } },
     };
