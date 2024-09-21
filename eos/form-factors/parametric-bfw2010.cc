@@ -30,6 +30,7 @@ namespace eos
     // b -> u
     template class BFW2010FormFactors<BsToK, PToP>;
     template class BFW2010FormFactors<BToPi, PToP>;
+    template class BFW2010FormFactors<BToEta, PToP>;
 
     // c -> s
     template class BFW2010FormFactors<DToK, PToP>;
