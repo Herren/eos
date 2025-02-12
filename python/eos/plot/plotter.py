@@ -638,7 +638,8 @@ class Plotter:
                 _ovalues_central.append(central)
                 _ovalues_higher.append(higher)
 
-            xvalues = np.linspace(np.min(self.xvalues), np.max(self.xvalues), self.xsamples)
+            #xvalues = np.linspace(np.min(self.xvalues), np.max(self.xvalues), self.xsamples)
+            xvalues = self.xvalues
             if self.xrange:
                 xvalues = np.ma.masked_outside(xvalues, float(self.xrange[0]), float(self.xrange[1]))
 
