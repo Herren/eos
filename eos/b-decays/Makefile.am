@@ -14,6 +14,7 @@ libeosbdecays_la_SOURCES = \
 	b-to-pi-pi-l-nu.cc b-to-pi-pi-l-nu.hh \
 	b-to-pi-l-x-nu.cc b-to-pi-l-x-nu.hh \
 	b-to-psd-l-nu.cc b-to-psd-l-nu.hh \
+	b-to-psd-psd-l-nu.cc b-to-psd-psd-l-nu.hh \
 	b-to-v-l-nu.hh \
 	b-to-vec-l-nu.cc b-to-vec-l-nu.hh b-to-vec-l-nu-impl.hh \
 	bq-to-dq-psd.cc bq-to-dq-psd.hh \
@@ -46,6 +47,7 @@ include_eos_bdecays_HEADERS = \
 	b-to-pi-pi-l-nu.hh \
 	b-to-pi-l-x-nu.hh \
 	b-to-psd-l-nu.hh \
+	b-to-psd-psd-l-nu.hh \
 	b-to-v-l-nu.hh \
 	b-to-vec-l-nu.hh \
 	bq-to-dq-psd.hh \
@@ -70,6 +72,7 @@ TESTS = \
 	b-to-gamma-l-nu_TEST \
 	b-to-pi-l-nu_TEST \
 	b-to-pi-pi-l-nu_TEST \
+	b-to-pi-pi-pw-l-nu_TEST \
 	b-to-rho-l-nu_TEST \
 	bq-to-dq-psd_TEST \
 	bq-to-dstarq-psd_TEST \
@@ -105,6 +108,8 @@ b_to_gamma_l_nu_TEST_SOURCES = b-to-gamma-l-nu_TEST.cc
 b_to_pi_l_nu_TEST_SOURCES = b-to-pi-l-nu_TEST.cc
 
 b_to_pi_pi_l_nu_TEST_SOURCES = b-to-pi-pi-l-nu_TEST.cc
+
+b_to_pi_pi_pw_l_nu_TEST_SOURCES = b-to-pi-pi-pw-l-nu_TEST.cc
 
 b_to_rho_l_nu_TEST_SOURCES = b-to-rho-l-nu_TEST.cc
 
